@@ -1,0 +1,14 @@
+@startuml
+state "UP" : setTile
+state "RIGHT" : setTile
+state "DOWN" : setTile
+STOP --> INIT: start: timeOut = clock() + timeInit
+UP --> UP: y < turn: y++; move
+INIT --> UP: endInit: x = y = 0; turn = 1
+INIT --> AV: clock() > timeOut
+RIGHT --> RIGHT: x < turn: move; x++
+UP --> RIGHT: y >= turn: x++; rotate
+DOWN --> DOWN: y > -(turn-1): y--; move; y--
+RIGHT --> DOWN: x >= turn: rotate; y--
+DOWN --> LEFT: y <= -(turn-1): rotate; y--
+@enduml
